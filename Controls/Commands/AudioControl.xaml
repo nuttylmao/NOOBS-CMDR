@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="NOOBS_CMDR.Controls.Commands.AudioControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOOBS_CMDR.Controls.Commands" xmlns:controls="clr-namespace:NOOBS_CMDR.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="1200">
+
+    <UserControl.Resources>
+        <local:Audio_SetVolumeVisConverter x:Key="SetVolumeVisConverter"/>
+        <local:Audio_SetMonitoringTypeVisConverter x:Key="SetMonitoringTypeVisConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <StackPanel HorizontalAlignment="Stretch">
+
+            <Label Content="Audio" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox x:Name="AudioStateCombo" Width="200" VerticalAlignment="Top" SelectedValue="{Binding audioState, Mode=TwoWay}" ToolTip="Set the audio state"/>
+                <Label Content=" for "/>
+                <controls:AutoCompleteComboBox x:Name="SourceCombo" Width="270" Text="{Binding sourceName, Mode=TwoWay}" Hint="audio source" ToolTip="Enter the name of the source"/>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding audioState, Converter={StaticResource SetVolumeVisConverter}}">
+                    <Label Content=" to "/>
+                    <TextBox x:Name="VolumeField" Width="70" PreviewTextInput="VolumeField_PreviewTextInput" TextAlignment="Right" VerticalAlignment="Top" Text="{Binding volume, Mode=TwoWay}" ToolTip="Set the volume (0-100%)"/>
+                    <Label Content="%"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding audioState, Converter={StaticResource SetMonitoringTypeVisConverter}}">
+                    <Label Content=" to "/>
+                    <ComboBox x:Name="MonitoringTypeCombo" Width="200" VerticalAlignment="Top" SelectedValue="{Binding monitoringType, Mode=TwoWay}" ToolTip="Set the audio monitoring type"/>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="NOOBS_CMDR.Controls.HintTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOOBS_CMDR.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="500">
+    <UserControl.Resources>
+        <Style x:Key="TransparentButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="0"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <TextBox x:Name="TextBox" DockPanel.Dock="Top"
+                 TextChanged="TextBox_TextChanged" 
+                 IsKeyboardFocusedChanged="SearchTextBox_IsKeyboardFocusedChanged"
+                 Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+        </TextBox>
+
+        <Label Name="HintLabel" Content="{Binding Hint, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, FallbackValue=Search}" Foreground="LightGray" HorizontalAlignment="Left" IsHitTestVisible="False" Opacity="0.3" Margin="5,0"/>
+
+    </Grid>
+</UserControl>

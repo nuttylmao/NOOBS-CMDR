@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="NOOBS_CMDR.Controls.Commands.DelayControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOOBS_CMDR.Controls.Commands"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="800">
+    <Grid>
+
+        <StackPanel HorizontalAlignment="Stretch">
+
+            <Label Content="Delay" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="DelayField" Width="70" PreviewTextInput="DelayField_PreviewTextInput" TextAlignment="Right" Text="{Binding delay, Mode=TwoWay}" ToolTip="Enter a time (in milliseconds)"/>
+                <Label Content="ms"/>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

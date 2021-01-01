@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="NOOBS_CMDR.Controls.Commands.ScreenshotControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOOBS_CMDR.Controls.Commands" xmlns:controls="clr-namespace:NOOBS_CMDR.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <local:Screenshot_SceneVisConverter x:Key="SceneVisConverter"/>
+        <local:Screenshot_SourceVisConverter x:Key="SourceVisConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <StackPanel HorizontalAlignment="Stretch">
+
+            <Label Content="Screenshot" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Take a screenshot of the "/>
+                <ComboBox x:Name="ScreenshotTypeCombo" Width="80" VerticalAlignment="Top" SelectedValue="{Binding screenshotType, Mode=TwoWay}" ToolTip="Set screenshot type"/>
+                <Label Content=" named "/>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding screenshotType, Converter={StaticResource SceneVisConverter}}">
+                    <controls:AutoCompleteComboBox x:Name="SceneCombo" Width="270" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene" ToolTip="Enter name of scene"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding screenshotType, Converter={StaticResource SourceVisConverter}}">
+                    <controls:AutoCompleteComboBox x:Name="SourceCombo" Width="270" Text="{Binding sourceName, Mode=TwoWay}" Hint="source" ToolTip="Enter name of source"/>
+                </StackPanel>
+                <Label Content=" and save it to "/>
+                <controls:HintTextBox x:Name="DirectoryField" MinWidth="200" PreviewMouseDown="DirectoryField_PreviewMouseDown" Text="{Binding saveToFilePath, Mode=TwoWay}" VerticalAlignment="Top" Hint="directory" ToolTip="Select file directory"/>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,164 @@
+﻿<Window x:Class="NOOBS_CMDR.NOOBS_CMDR_Homepage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOOBS_CMDR" xmlns:controls="clr-namespace:NOOBS_CMDR.Controls" xmlns:actions="clr-namespace:NOOBS_CMDR.Controls.Commands"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:commands="clr-namespace:NOOBS_CMDR.Commands" xmlns:converters="clr-namespace:NOOBS_CMDR.Converters"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle, RelativeSource={RelativeSource Mode=Self}}" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <converters:InvertableBooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#353535" BorderThickness="0,0,0,1">
+            <Grid Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button x:Name="ConnectBtn" Click="ConnectBtn_Click" ToolTip="Click to connect/disconnect">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="pack://application:,,,/Resources/connected.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Normal, FallbackValue=Visible}"/>
+                            <TextBlock Text="CONNECTED!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Normal, FallbackValue=Visible}"/>
+                            <Image Source="pack://application:,,,/Resources/disconnected.png"  RenderOptions.BitmapScalingMode="HighQuality" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}"/>
+                            <TextBlock Text="NOT CONNECTED!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}"/>
+                        </StackPanel>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}">
+                        <TextBlock Text="Server" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                        <TextBox x:Name="ServerText" Width="120" ToolTip="Enter IP Address"/>
+                        <TextBlock Text="Port" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                        <TextBox x:Name="PortText" Width="50" ToolTip="Enter port number"/>
+                        <TextBlock Text="Password" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                        <PasswordBox x:Name="PasswordText" MinWidth="100" ToolTip="Enter password"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="ImportBtn" Width="70" Margin="10,0" Click="ImportBtn_Click" ToolTip="Import .bat or .vbs script">
+                        <TextBlock Text="IMPORT" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                    </Button>
+                    <Button x:Name="ExportBtn" Width="70" Margin="10,0" Click="ExportBtn_Click" ToolTip="Export to .bat or .vbs file">
+                        <TextBlock Text="EXPORT" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                    </Button>
+                    <Button x:Name="TestCommandBtn" Width="130" Margin="10,0" Click="TestCommandBtn_Click" Background="#30B774" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Normal, FallbackValue=Visible}" ToolTip="Execute command!">
+                        <TextBlock Text="TEST COMMAND!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border Background="#222222" BorderThickness="0,0,1,0" Grid.RowSpan="2">
+
+                    <DockPanel Margin="5">
+
+                        <controls:Searchbar x:Name="CommandTypeListSearch" Hint="Search..." DockPanel.Dock="Top" SearchTextChanged="Searchbar_SearchTextChanged"/>
+
+                        <ListBox x:Name="CommandTypeList" ItemsSource="{Binding CommandTypes}" Background="Transparent" ScrollViewer.CanContentScroll="False" PreviewMouseDown="CommandTypeList_PreviewMouseDown">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="Focusable" Value="False"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding commandTypeDesc}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                    </DockPanel>
+                    
+                </Border>
+
+                <Grid Grid.Column="1" Background="#2D2D2D">
+
+                    <ListBox x:Name="CommandListBox" Background="Transparent" ScrollViewer.CanContentScroll="False" SelectionMode="Extended" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" MouseDown="CommandList_MouseDown" PreviewKeyDown="CommandListBox_PreviewKeyDown">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="Copy_MenuItem" Header="Copy" Click="Copy_MenuItem_Click"/>
+                                <MenuItem x:Name="Paste_MenuItem" Header="Paste" Click="Paste_MenuItem_Click"/>
+                                <MenuItem x:Name="Delete_MenuItem" Header="Delete" Click="Delete_MenuItem_Click"/>
+                                <MenuItem x:Name="Duplicate_MenuItem" Header="Duplicate" Click="Duplicate_MenuItem_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="Test_MenuItem" Header="Execute Selected Commands!" Click="Test_MenuItem_Click"/>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBox.Resources>
+                            <DataTemplate DataType="{x:Type commands:StreamCommand}">
+                                <actions:StreamControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:RecordingCommand}">
+                                <actions:RecordingControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:SceneCommand}">
+                                <actions:SceneControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:ProfileCommand}">
+                                <actions:ProfileControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:SourceCommand}">
+                                <actions:SourceControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:FilterCommand}">
+                                <actions:FilterControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:AudioCommand}">
+                                <actions:AudioControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:TransitionCommand}">
+                                <actions:TransitionControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:StudioModeCommand}">
+                                <actions:StudioModeControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:ScreenshotCommand}">
+                                <actions:ScreenshotControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:ReplayBufferCommand}">
+                                <actions:ReplayBufferControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:ProjectorCommand}">
+                                <actions:ProjectorControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:DelayCommand}">
+                                <actions:DelayControl Command="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:CustomCommand}">
+                                <actions:CustomCommandControl Command="{Binding}"/>
+                            </DataTemplate>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                </Grid>
+
+                <!--<Border Grid.Row="1" Grid.Column="1" Background="#353535" BorderThickness="0,1,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                        <Button x:Name="DuplicateBtn" Content="Duplicate" Width="70" Margin="10,0" Click="DuplicateBtn_Click"/>
+                        <Button x:Name="DeleteSelectedBtn" Content="✖" Width="30" Margin="10,0" Click="DeleteBtn_Click"/>
+                        <Button x:Name="TestSelectedBtn" Content="Test Selected" Width="100" Margin="10,0" Click="TestSelectedBtn_Click"/>
+                    </StackPanel>
+                </Border>-->
+                
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="NOOBS_CMDR.Controls.Commands.TransitionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOOBS_CMDR.Controls.Commands" xmlns:controls="clr-namespace:NOOBS_CMDR.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <local:Transition_SceneVisConverter x:Key="SceneVisConverter"/>
+        <local:Transition_TransitionVisConverter x:Key="TransitionVisConverter"/>
+        <local:Transition_DurationVisConverter x:Key="DurationVisConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <StackPanel HorizontalAlignment="Stretch">
+
+            <Label Content="Transition" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox x:Name="TransitionStateCombo" Width="250" VerticalAlignment="Top" SelectedValue="{Binding transitionState, Mode=TwoWay}" ToolTip="Set transition state"/>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding transitionState, Converter={StaticResource SceneVisConverter}}">
+                    <Label Content=" for "/>
+                    <controls:AutoCompleteComboBox x:Name="SceneCombo" Width="270" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene" ToolTip="Enter name of scene"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding transitionState, Converter={StaticResource TransitionVisConverter}}">
+                    <Label Content=" to "/>
+                    <controls:AutoCompleteComboBox x:Name="TransitionCombo" Width="150" Text="{Binding transitionName, Mode=TwoWay}" Hint="transition" ToolTip="Enter name of transition"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding transitionState, Converter={StaticResource DurationVisConverter}}">
+                    <Label Content=" with duration "/>
+                    <TextBox x:Name="DurationField" Width="70" PreviewTextInput="DurationField_PreviewTextInput" Text="{Binding duration, Mode=TwoWay}" TextAlignment="Right" VerticalAlignment="Top" ToolTip="Enter monitor number (starts from 0)"/>
+                    <Label Content="ms"/>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

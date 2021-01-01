@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  Release:
+        
+    runs-on: windows-latest
+        
+    env:
+      SOLUTION_NAME: 'NOOBS CMDR.sln'
+      PACKAGE_NAME: 'NOOBS CMDR'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1
+      
+    - name: Setup NuGet.exe for use with actions
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: Restore Nuget packages
+      run: nuget restore '${{ env.SOLUTION_NAME }}'
+        
+    - name: Build the Solution
+      run: |
+        $env:FILE_DATE=(Get-Date -UFormat "%F")
+        $env:FILE_NAME="${{ env.PACKAGE_NAME }}-${env:FILE_DATE}-${{ github.sha }}"
+        echo "FILE_NAME=${env:FILE_NAME}" >> ${env:GITHUB_ENV}
+        msbuild '${{ env.SOLUTION_NAME }}'
+      
+    - name: Publish zip
+      if: success()
+      uses: actions/upload-artifact@v2.2.0        
+      with:
+        name: '${{ env.FILE_NAME }}'
+        path: bin/Debug/*
+      

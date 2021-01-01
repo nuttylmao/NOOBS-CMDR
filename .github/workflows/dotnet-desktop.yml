@@ -52,8 +52,7 @@ jobs:
       matrix:
         configuration: [Release]
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: windows-latest
 
     env:
       Solution_Name: "NOOBS CMDR.sln"
@@ -71,14 +70,8 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
       
     - name: Restore Nuget packages
-      run: nuget restore "NOOBS CMDR.sln"
+      run: nuget restore ${{ env.Solution_Name }}
       
     - name: Build the solution
-      run: msbuild "NOOBS CMDR.sln"
+      run: msbuild ${{ env.Solution_Name }}
       
-    - name: Publish zip
-      if: success()
-      uses: actions/upload-artifact@v2.2.0
-      with:
-        name: '${{ env.FILE_NAME }}'
-        path: package/*

@@ -56,7 +56,7 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      Solution_Name: NOOBS CMDR.sln
+      Solution_Name: "NOOBS CMDR.sln"
 
     steps:
     - name: Checkout
@@ -71,7 +71,7 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
       
     - name: Restore Nuget packages
-      run: nuget restore NOOBS CMDR.sln
+      run: nuget restore "NOOBS CMDR.sln"
       
     - name: Build the solution
-      run: msbuild NOOBS CMDR.sln
+      run: msbuild "NOOBS CMDR.sln"

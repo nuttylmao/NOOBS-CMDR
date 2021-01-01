@@ -73,12 +73,12 @@ jobs:
       run: nuget restore "${{ env.Solution_Name }}"
         
     - name: Build the Solution
-      run: msbuild '${{ env.FILE_NAME }}'
+      run: msbuild '${{ env.Solution_Name }}'
       
     - name: Publish zip
       if: success()
       uses: actions/upload-artifact@v2.2.0
       with:
-        name: '${{ env.FILE_NAME }}'
+        name: '${{ env.Solution_Name }}'
         path: bin/*
       

@@ -309,13 +309,15 @@ namespace NOOBS_CMDR
                                .FirstOrDefault();
 
             string strCmdText;
-            strCmdText = string.Format(@"/C /server={0}:{1} /password={2} ", ServerText.Text, PortText.Text, PasswordText.Password);
+            strCmdText = string.Format(@"/server={0}:{1} /password=""{2}""", ServerText.Text, PortText.Text, PasswordText.Password);
 
             foreach (Command command in commandList)
             {
                 Console.WriteLine(command.ToString());
                 strCmdText += " " + command.ToString().ReplaceTimestamp();
             }
+
+            Console.WriteLine(strCmdText);
 
             Process process = new Process
             {

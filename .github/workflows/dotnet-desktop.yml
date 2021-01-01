@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  release:
         
     runs-on: windows-latest
 
@@ -40,6 +40,6 @@ jobs:
       if: success()
       uses: actions/upload-artifact@v2.2.0        
       with:
-        name: '${{ env.FILE_NAME }'
+        name: '${{ env.FILE_NAME }}'
         path: bin/Debug*
       

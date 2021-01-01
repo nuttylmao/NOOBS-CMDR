@@ -41,5 +41,5 @@ jobs:
       uses: actions/upload-artifact@v2.2.0        
       with:
         name: '${{ env.FILE_NAME }}'
-        path: bin/Debug*
+        path: bin/Debug/*
       

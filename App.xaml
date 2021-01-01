@@ -20,12 +20,18 @@
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Background" Value="#3B3B3B"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
-            <Setter Property="Margin" Value="0,4"/>
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="4"/>
                 </Style>
             </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#323232"></Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="{x:Type ComboBoxItem}">

@@ -71,14 +71,19 @@
 
                 <Border Background="#222222" BorderThickness="0,0,1,0" Grid.RowSpan="2">
 
-                    <DockPanel Margin="5">
+                    <DockPanel>
 
-                        <controls:Searchbar x:Name="CommandTypeListSearch" Hint="Search..." DockPanel.Dock="Top" SearchTextChanged="Searchbar_SearchTextChanged"/>
+                        <controls:Searchbar x:Name="CommandTypeListSearch" Hint="Search..." DockPanel.Dock="Top" SearchTextChanged="Searchbar_SearchTextChanged" Margin="5"/>
 
-                        <ListBox x:Name="CommandTypeList" ItemsSource="{Binding CommandTypes}" Background="Transparent" ScrollViewer.CanContentScroll="False" PreviewMouseDown="CommandTypeList_PreviewMouseDown">
+                        <ListBox x:Name="CommandTypeList" ItemsSource="{Binding CommandTypes}" Background="Transparent" ScrollViewer.CanContentScroll="False" PreviewMouseDown="CommandTypeList_PreviewMouseDown" AlternationCount="2">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}">
                                     <Setter Property="Focusable" Value="False"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                            <Setter Property="Background" Value="#1F1F1F"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
                                 </Style>
                             </ListBox.ItemContainerStyle>
                             <ListBox.ItemTemplate>
@@ -94,7 +99,7 @@
 
                 <Grid Grid.Column="1" Background="#2D2D2D">
 
-                    <ListBox x:Name="CommandListBox" Background="Transparent" ScrollViewer.CanContentScroll="False" SelectionMode="Extended" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" MouseDown="CommandList_MouseDown" PreviewKeyDown="CommandListBox_PreviewKeyDown">
+                    <ListBox x:Name="CommandListBox" Background="Transparent" ScrollViewer.CanContentScroll="False" SelectionMode="Extended" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" MouseDown="CommandList_MouseDown" PreviewKeyDown="CommandListBox_PreviewKeyDown" AlternationCount="2">
                         <ListBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem x:Name="Copy_MenuItem" Header="Copy" Click="Copy_MenuItem_Click"/>
@@ -152,17 +157,11 @@
                     </ListBox>
 
                 </Grid>
-
-                <!--<Border Grid.Row="1" Grid.Column="1" Background="#353535" BorderThickness="0,1,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                        <Button x:Name="DuplicateBtn" Content="Duplicate" Width="70" Margin="10,0" Click="DuplicateBtn_Click"/>
-                        <Button x:Name="DeleteSelectedBtn" Content="✖" Width="30" Margin="10,0" Click="DeleteBtn_Click"/>
-                        <Button x:Name="TestSelectedBtn" Content="Test Selected" Width="100" Margin="10,0" Click="TestSelectedBtn_Click"/>
-                    </StackPanel>
-                </Border>-->
                 
             </Grid>
+            
         </Border>
 
     </Grid>
+    
 </Window>

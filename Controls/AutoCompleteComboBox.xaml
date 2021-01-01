@@ -13,7 +13,10 @@
                  GotFocus="suggestionListBox_GotFocus"
                  Visibility="Collapsed" 
                  MinWidth="150"
-                 MaxHeight="400">
+                 MaxHeight="200"
+                 AlternationCount="2"
+                 BorderThickness="0.8"
+                 BorderBrush="#949494">
         </ListBox>
     </StackPanel>
 </UserControl>

@@ -69,8 +69,8 @@ jobs:
       # uses: NuGet/setup-nuget@04b0c2b8d1b97922f67eca497d7cf0bf17b8ffe1
       uses: NuGet/setup-nuget@v1.0.5
       
-    #- name: Restore Nuget packages
-      #run: nuget restore "${{ env.Solution_Name }}"
+    - name: Restore Nuget packages
+      run: nuget restore "${{ env.Solution_Name }}"
         
     - name: Build the Solution
       run: msbuild '${{ env.FILE_NAME }}'

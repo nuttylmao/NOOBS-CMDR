@@ -1,42 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow will build, test, sign and package a WPF or Windows Forms desktop application
-# built on .NET Core.
-# To learn how to migrate your existing application to .NET Core,
-# refer to https://docs.microsoft.com/en-us/dotnet/desktop-wpf/migration/convert-project-from-net-framework
-#
-# To configure this workflow:
-#
-# 1. Configure environment variables
-# GitHub sets default environment variables for every workflow run.
-# Replace the variables relative to your project in the "env" section below.
-#
-# 2. Signing
-# Generate a signing certificate in the Windows Application
-# Packaging Project or add an existing signing certificate to the project.
-# Next, use PowerShell to encode the .pfx file using Base64 encoding
-# by running the following Powershell script to generate the output string:
-#
-# $pfx_cert = Get-Content '.\SigningCertificate.pfx' -Encoding Byte
-# [System.Convert]::ToBase64String($pfx_cert) | Out-File 'SigningCertificate_Encoded.txt'
-#
-# Open the output file, SigningCertificate_Encoded.txt, and copy the
-# string inside. Then, add the string to the repo as a GitHub secret
-# and name it "Base64_Encoded_Pfx."
-# For more information on how to configure your signing certificate for
-# this workflow, refer to https://github.com/microsoft/github-actions-for-desktop-apps#signing
-#
-# Finally, add the signing certificate password to the repo as a secret and name it "Pfx_Key".
-# See "Build the Windows Application Packaging project" below to see how the secret is used.
-#
-# For more information on GitHub Actions, refer to https://github.com/features/actions
-# For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
-# refer to https://github.com/microsoft/github-actions-for-desktop-apps
-
-name: .NET Core Desktop
+name: CI
 
 on:
   push:
@@ -52,10 +14,13 @@ jobs:
       matrix:
         configuration: [Release]
     
+    name: 'Release'
+    
     runs-on: windows-latest
 
     env:
-      Solution_Name: "NOOBS CMDR.sln"
+      SOLUTION_NAME: 'NOOBS CMDR.sln'
+      PACKAGE_NAME: 'NOOBS CMDR'
 
     steps:
     - name: Checkout
@@ -65,20 +30,21 @@ jobs:
       uses: microsoft/setup-msbuild@v1
       
     - name: Setup NuGet.exe for use with actions
-      # You may pin to the exact commit or the version.
-      # uses: NuGet/setup-nuget@04b0c2b8d1b97922f67eca497d7cf0bf17b8ffe1
       uses: NuGet/setup-nuget@v1.0.5
       
     - name: Restore Nuget packages
-      run: nuget restore "${{ env.Solution_Name }}"
+      run: nuget restore '${{ env.SOLUTION_NAME }}'
         
     - name: Build the Solution
-      run: msbuild '${{ env.Solution_Name }}'
+      run: |
+        $env:FILE_DATE=(Get-Date -UFormat "%F")
+        $env:FILE_NAME="${{ env.PACKAGE_NAME }}-${env:FILE_DATE}-${{ github.sha }}"
+        msbuild '${{ env.SOLUTION_NAME }}'
       
     - name: Publish zip
       if: success()
       uses: actions/upload-artifact@v2.2.0
       with:
-        name: '${{ env.Solution_Name }}'
-        path: bin/*
+        name: '${{ env.FILE_NAME }}'
+        path: bin/Debug*
       

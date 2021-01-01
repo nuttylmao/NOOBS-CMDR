@@ -8,11 +8,7 @@ on:
 
 jobs:
 
-  release:
-
-    strategy:
-      matrix:
-        configuration: [Release]
+  build:
         
     runs-on: windows-latest
 

@@ -23,12 +23,16 @@
         <Border Background="#353535" BorderThickness="0,0,0,1">
             <Grid Margin="5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button x:Name="ConnectBtn" Click="ConnectBtn_Click" ToolTip="Click to connect/disconnect">
+                    <Button x:Name="ConnectBtn" Click="ConnectBtn_Click" ToolTip="Click to disconnect" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Normal, FallbackValue=Visible}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Image Source="pack://application:,,,/Resources/connected.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Normal, FallbackValue=Visible}"/>
-                            <TextBlock Text="CONNECTED!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Normal, FallbackValue=Visible}"/>
-                            <Image Source="pack://application:,,,/Resources/disconnected.png"  RenderOptions.BitmapScalingMode="HighQuality" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}"/>
-                            <TextBlock Text="NOT CONNECTED!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}"/>
+                            <Image Source="pack://application:,,,/Resources/connected.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="CONNECTED!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Click="ConnectBtn_Click" ToolTip="Click to connect" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="pack://application:,,,/Resources/disconnected.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="NOT CONNECTED!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
                         </StackPanel>
                     </Button>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}">

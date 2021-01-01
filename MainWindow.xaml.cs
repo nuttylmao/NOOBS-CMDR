@@ -80,7 +80,7 @@ namespace NOOBS_CMDR
             Console.WriteLine(typeof(NOOBS_CMDR_Homepage).Assembly.GetName().Version);
 
             var enviromentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
-
+            
             var paths = enviromentPath.Split(';');
             var exePath = paths.Select(x => Path.Combine(x, "OBSCommand.exe"))
                                .Where(x => File.Exists(x))

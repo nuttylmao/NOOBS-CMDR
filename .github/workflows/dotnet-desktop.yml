@@ -8,14 +8,12 @@ on:
 
 jobs:
 
-  build:
+  release:
 
     strategy:
       matrix:
         configuration: [Release]
-    
-    name: 'Release'
-    
+        
     runs-on: windows-latest
 
     env:
@@ -39,12 +37,13 @@ jobs:
       run: |
         $env:FILE_DATE=(Get-Date -UFormat "%F")
         $env:FILE_NAME="${{ env.PACKAGE_NAME }}-${env:FILE_DATE}-${{ github.sha }}"
+        echo "FILE_NAME=${FILE_NAME}" >> $GITHUB_ENV
         msbuild '${{ env.SOLUTION_NAME }}'
       
     - name: Publish zip
       if: success()
-      uses: actions/upload-artifact@v2.2.0
+      uses: actions/upload-artifact@v2.2.0        
       with:
-        name: "${{ env.FILE_NAME }}"
+        name: '${{ env.FILE_NAME }'
         path: bin/Debug*
       

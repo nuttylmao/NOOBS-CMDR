@@ -77,7 +77,6 @@ namespace NOOBS_CMDR
         {
             InitializeComponent();
             this.DataContext = this;
-            Console.WriteLine(typeof(NOOBS_CMDR_Homepage).Assembly.GetName().Version);
 
             var enviromentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
             
@@ -88,7 +87,7 @@ namespace NOOBS_CMDR
             
             if (string.IsNullOrWhiteSpace(exePath))
             {
-                MessageBox.Show(@"Please run ""INSTALL.BAT"" in admin mode.", "OBSCommand Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(@"Please run ""Installer.bat"" in admin mode.", "OBSCommand Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
                 System.Environment.Exit(1);
             }
 

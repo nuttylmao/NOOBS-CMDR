@@ -11,7 +11,7 @@ jobs:
   Release:
         
     runs-on: windows-latest
-
+        
     env:
       SOLUTION_NAME: 'NOOBS CMDR.sln'
       PACKAGE_NAME: 'NOOBS CMDR'
@@ -40,6 +40,6 @@ jobs:
       if: success()
       uses: actions/upload-artifact@v2.2.0        
       with:
-        name: '${{ env.FILE_NAME }'
+        name: '${{ env.FILE_NAME }}'
         path: bin/Debug*
       

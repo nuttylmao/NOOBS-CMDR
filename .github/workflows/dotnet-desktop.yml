@@ -75,3 +75,10 @@ jobs:
       
     - name: Build the solution
       run: msbuild "NOOBS CMDR.sln"
+      
+    - name: Publish zip
+      if: success()
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: '${{ env.FILE_NAME }}'
+        path: package/*

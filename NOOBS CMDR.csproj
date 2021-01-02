@@ -228,7 +228,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\StringExtensions.cs" />
+    <Compile Include="Extensions\OBSWebsocketExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Commands\AudioCommand.cs" />
     <Compile Include="Commands\TransitionCommand.cs" />
     <Compile Include="Commands\ScreenshotCommand.cs" />
@@ -249,7 +250,6 @@
       <DependentUpon>HintTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\InvertableBooleanToVisibilityConverter.cs" />
-    <Compile Include="Enums.cs" />
     <Compile Include="Commands\CustomCommand.cs" />
     <Compile Include="Commands\ProfileCommand.cs" />
     <Compile Include="Commands\FilterCommand.cs" />

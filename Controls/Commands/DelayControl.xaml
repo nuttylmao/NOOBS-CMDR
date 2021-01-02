@@ -12,7 +12,7 @@
 
             <Label Content="Delay" FontWeight="Bold"/>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="DelayField" Width="70" PreviewTextInput="DelayField_PreviewTextInput" TextAlignment="Right" Text="{Binding delay, Mode=TwoWay}" ToolTip="Enter a time (in milliseconds)"/>
+                <TextBox x:Name="DelayField" Width="70" PreviewTextInput="DelayField_PreviewTextInput" TextAlignment="Right" Text="{Binding delay, Mode=TwoWay}" ToolTip="Enter a time (in milliseconds)" Margin="0,4"/>
                 <Label Content="ms"/>
             </StackPanel>
 

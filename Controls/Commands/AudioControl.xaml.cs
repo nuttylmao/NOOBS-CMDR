@@ -1,4 +1,5 @@
 ﻿using NOOBS_CMDR.Commands;
+using NOOBS_CMDR.Extensions;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace NOOBS_CMDR.Controls.Commands
             {
                 AudioSourceStateComboSetup();
                 MonitoringTypeComboSetup();
-                SourceComboSetup();
+                AudioSourceComboSetup();
             };
         }
 
@@ -65,38 +66,15 @@ namespace NOOBS_CMDR.Controls.Commands
             MonitoringTypeCombo.Items.Add(new KeyValuePair<string, AudioCommand.MonitoringType>("Monitor And Output", AudioCommand.MonitoringType.monitorAndOutput));
         }
 
-        private void RefreshSources()
+        private void RefreshAudioSources()
         {
-            if (!Command.obs.IsConnected)
-            {
-                SourceCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> sources = new List<string>();
-
-            // Get a list of all sources that have audio
-            foreach (OBSScene scene in Command.obs.GetSceneList().Scenes)
-            {
-                foreach (SceneItem source in scene.Items)
-                {
-                    if (Enums.AudioSourceTypes.Contains(source.InternalType))
-                    {
-                        if (!sources.Contains(source.SourceName))
-                            sources.Add(source.SourceName);
-                    }
-                }
-            }
-
-            sources.Sort();
-
-            SourceCombo.ItemsSource = sources;
+            AudioSourceCombo.ItemsSource = Command.obs.GetAudioSources();
         }
 
-        private void SourceComboSetup()
+        private void AudioSourceComboSetup()
         {
-            RefreshSources();
-            SourceCombo.HideSuggestionListBox();
+            RefreshAudioSources();
+            AudioSourceCombo.HideSuggestionListBox();
         }
 
         private void VolumeField_PreviewTextInput(object sender, TextCompositionEventArgs e)

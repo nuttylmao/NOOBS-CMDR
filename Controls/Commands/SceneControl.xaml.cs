@@ -1,4 +1,5 @@
 ﻿using NOOBS_CMDR.Commands;
+using NOOBS_CMDR.Extensions;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace NOOBS_CMDR.Controls.Commands
             }
 
             List<string> scenes = Command.obs.GetSceneList().Scenes.ConvertAll(x => x.Name);
-            SceneCombo.ItemsSource = scenes;
+            SceneCombo.ItemsSource = Command.obs.GetScenes();
         }
 
         private void SceneComboSetup()

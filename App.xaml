@@ -47,7 +47,6 @@
             <Setter Property="BorderBrush" Value="#111111"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0,4"/>
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="4"/>
@@ -107,7 +106,7 @@
 
         <Style TargetType="{x:Type ComboBox}">
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="2,0,0,0"/>
+            <Setter Property="Margin" Value="2,5,0,0"/>
             <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
             <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
@@ -118,7 +117,7 @@
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Grid Margin="0,4">
+                        <Grid>
 
                             <ToggleButton Name="PART_ToggleButton" Grid.Column="2" ClickMode="Press" Focusable="False" IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
                             <ContentPresenter Name="ContentSite" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{TemplateBinding ComboBox.SelectionBoxItem}" ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>

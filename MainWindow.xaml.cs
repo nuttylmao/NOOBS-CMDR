@@ -1,6 +1,6 @@
 ﻿using GongSolutions.Wpf.DragDrop;
 using Microsoft.Win32;
-using NOOBS_CMDR.Classes;
+using NOOBS_CMDR.Extensions;
 using NOOBS_CMDR.Commands;
 using OBSWebsocketDotNet;
 using System;
@@ -833,7 +833,7 @@ namespace NOOBS_CMDR
 
                             Commands.Add(new TransitionCommand(obs)
                             {
-                                transitionState = TransitionCommand.State.SetSceneTransitionOverride,
+                                transitionState = TransitionCommand.State.SetCurrentTransition,
                                 transitionName = transitionName
                             });
                         }

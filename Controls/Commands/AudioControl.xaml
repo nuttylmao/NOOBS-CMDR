@@ -20,7 +20,7 @@
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="AudioStateCombo" Width="200" VerticalAlignment="Top" SelectedValue="{Binding audioState, Mode=TwoWay}" ToolTip="Set the audio state"/>
                 <Label Content=" for "/>
-                <controls:AutoCompleteComboBox x:Name="SourceCombo" Width="270" Text="{Binding sourceName, Mode=TwoWay}" Hint="audio source" ToolTip="Enter the name of the source"/>
+                <controls:AutoCompleteComboBox x:Name="AudioSourceCombo" Width="270" Text="{Binding sourceName, Mode=TwoWay}" Hint="audio source" ToolTip="Enter the name of the source"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding audioState, Converter={StaticResource SetVolumeVisConverter}}">
                     <Label Content=" to "/>
                     <TextBox x:Name="VolumeField" Width="70" PreviewTextInput="VolumeField_PreviewTextInput" TextAlignment="Right" VerticalAlignment="Top" Text="{Binding volume, Mode=TwoWay}" ToolTip="Set the volume (0-100%)"/>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NOOBS_CMDR.Classes
+namespace NOOBS_CMDR.Extensions
 {
     public static class StringExtensions
     {

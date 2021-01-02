@@ -21,11 +21,11 @@
                 <ComboBox x:Name="TransitionStateCombo" Width="250" VerticalAlignment="Top" SelectedValue="{Binding transitionState, Mode=TwoWay}" ToolTip="Set transition state"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding transitionState, Converter={StaticResource SceneVisConverter}}">
                     <Label Content=" for "/>
-                    <controls:AutoCompleteComboBox x:Name="SceneCombo" Width="270" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene" ToolTip="Enter name of scene"/>
+                    <controls:AutoCompleteComboBox x:Name="SceneCombo" Width="270" TextBox_Clicked="SceneCombo_TextBox_Clicked" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene" ToolTip="Enter name of scene"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding transitionState, Converter={StaticResource TransitionVisConverter}}">
                     <Label Content=" to "/>
-                    <controls:AutoCompleteComboBox x:Name="TransitionCombo" Width="150" Text="{Binding transitionName, Mode=TwoWay}" Hint="transition" ToolTip="Enter name of transition"/>
+                    <controls:AutoCompleteComboBox x:Name="TransitionCombo" Width="150" TextBox_Clicked="TransitionCombo_TextBox_Clicked" Text="{Binding transitionName, Mode=TwoWay}" Hint="transition" ToolTip="Enter name of transition"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding transitionState, Converter={StaticResource DurationVisConverter}}">
                     <Label Content=" with duration "/>

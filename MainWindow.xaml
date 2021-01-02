@@ -37,9 +37,9 @@
                     </Button>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Inverted, FallbackValue=Collapsed}">
                         <TextBlock Text="Server" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
-                        <TextBox x:Name="ServerText" Width="120" ToolTip="Enter IP Address" Margin="0,4"/>
+                        <TextBox x:Name="ServerText" Width="120" ToolTip="Enter IP Address"/>
                         <TextBlock Text="Port" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
-                        <TextBox x:Name="PortText" Width="50" ToolTip="Enter port number" Margin="0,4"/>
+                        <TextBox x:Name="PortText" Width="50" ToolTip="Enter port number"/>
                         <TextBlock Text="Password" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
                         <PasswordBox x:Name="PasswordText" MinWidth="100" ToolTip="Enter password"/>
                     </StackPanel>

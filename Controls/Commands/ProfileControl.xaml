@@ -13,7 +13,7 @@
             <Label Content="Profile" FontWeight="Bold"/>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Switch to "/>
-                <controls:AutoCompleteComboBox x:Name="ProfileCombo" Width="270" Text="{Binding profileName, Mode=TwoWay}" Hint="profile" ToolTip="Enter name of profile"/>
+                <controls:AutoCompleteComboBox x:Name="ProfileCombo" Width="270" Text="{Binding profileName, Mode=TwoWay}" Hint="profile" ToolTip="Enter name of profile" TextBox_Clicked="ProfileCombo_TextBox_Clicked"/>
             </StackPanel>            
 
         </StackPanel>

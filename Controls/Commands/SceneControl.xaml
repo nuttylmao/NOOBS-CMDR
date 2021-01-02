@@ -13,7 +13,7 @@
             <Label Content="Scene" FontWeight="Bold"/>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Switch to "/>
-                <controls:AutoCompleteComboBox x:Name="SceneCombo" AutoTextBox_Clicked="SceneCombo_AutoTextBox_Clicked" Width="270" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene" ToolTip="Enter scene name"/>
+                <controls:AutoCompleteComboBox x:Name="SceneCombo" TextBox_Clicked="SceneCombo_TextBox_Clicked" Width="270" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene" ToolTip="Enter scene name"/>
             </StackPanel>
 
         </StackPanel>

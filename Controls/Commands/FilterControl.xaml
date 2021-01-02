@@ -14,9 +14,9 @@
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="FilterStateCombo" Width="150" VerticalAlignment="Top" SelectedValue="{Binding filterState, Mode=TwoWay}" ToolTip="Set filter state"/>
                 <Label Content=" for "/>
-                <controls:AutoCompleteComboBox x:Name="SourceCombo" Width="270" TextChanged="SourceCombo_TextChanged" AutoTextBox_Clicked="SourceCombo_AutoTextBox_Clicked" Text="{Binding sourceName, Mode=TwoWay}" Hint="source" ToolTip="Enter name of source"/>
+                <controls:AutoCompleteComboBox x:Name="SourceCombo" Width="270" TextChanged="SourceCombo_TextChanged" TextBox_Clicked="SourceCombo_TextBox_Clicked" Text="{Binding sourceName, Mode=TwoWay}" Hint="source" ToolTip="Enter name of source"/>
                 <Label Content=" with the name "/>
-                <controls:AutoCompleteComboBox x:Name="FilterCombo" Width="270" AutoTextBox_Clicked="FilterCombo_AutoTextBox_Clicked" Text="{Binding filterName, Mode=TwoWay}" Hint="filter" ToolTip="Enter name of filter"/>
+                <controls:AutoCompleteComboBox x:Name="FilterCombo" Width="270" TextBox_Clicked="FilterCombo_TextBox_Clicked" Text="{Binding filterName, Mode=TwoWay}" Hint="filter" ToolTip="Enter name of filter"/>
             </StackPanel>
 
         </StackPanel>

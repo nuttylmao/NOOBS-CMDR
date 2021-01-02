@@ -1,4 +1,5 @@
 ﻿using NOOBS_CMDR.Commands;
+using NOOBS_CMDR.Extensions;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
@@ -67,39 +68,12 @@ namespace NOOBS_CMDR.Controls.Commands
 
         private void RefreshScenes()
         {
-            if (!Command.obs.IsConnected)
-            {
-                SceneCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> scenes = Command.obs.GetSceneList().Scenes.ConvertAll(x => x.Name);
-            SceneCombo.ItemsSource = scenes;
+            SceneCombo.ItemsSource = Command.obs.GetScenes();
         }
 
         private void RefreshSources()
         {
-            if (!Command.obs.IsConnected)
-            {
-                SourceCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> sources = new List<string>();
-
-            // Get a list of all sources that have audio
-            foreach (OBSScene scene in Command.obs.GetSceneList().Scenes)
-            {
-                foreach (SceneItem source in scene.Items)
-                {
-                    if (!sources.Contains(source.SourceName))
-                        sources.Add(source.SourceName);
-                }
-            }
-
-            sources.Sort();
-
-            SourceCombo.ItemsSource = sources;
+            SourceCombo.ItemsSource = Command.obs.GetSources(null, true);
         }
 
         private void SceneComboSetup()
@@ -118,6 +92,16 @@ namespace NOOBS_CMDR.Controls.Commands
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void SceneCombo_TextBox_Clicked(object sender, EventArgs e)
+        {
+            RefreshScenes();
+        }
+
+        private void SourceCombo_TextBox_Clicked(object sender, EventArgs e)
+        {
+            RefreshSources();
         }
     }
 

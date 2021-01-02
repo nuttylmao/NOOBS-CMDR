@@ -1,4 +1,5 @@
 ﻿using NOOBS_CMDR.Commands;
+using NOOBS_CMDR.Extensions;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
@@ -55,38 +56,12 @@ namespace NOOBS_CMDR.Controls.Commands
 
         private void RefreshScenes()
         {
-            if (!Command.obs.IsConnected)
-            {
-                SceneCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> scenes = Command.obs.GetSceneList().Scenes.ConvertAll(x => x.Name);
-            SceneCombo.ItemsSource = scenes;
+            SceneCombo.ItemsSource = Command.obs.GetScenes(); ;
         }
 
         private void RefreshSources()
         {
-            if (!Command.obs.IsConnected)
-            {
-                SourceCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> sources = new List<string>();
-
-            foreach (OBSScene scene in Command.obs.GetSceneList().Scenes)
-            {
-                if (scene.Name == Command.sceneName || string.IsNullOrWhiteSpace(scene.Name))
-                {
-                    foreach (SceneItem source in scene.Items)
-                    {
-                        sources.Add(source.SourceName);
-                    }
-                }
-            }
-
-            SourceCombo.ItemsSource = sources;
+            SourceCombo.ItemsSource = Command.obs.GetSources(Command.sceneName);
             SourceCombo.autoTextBox.Text = "";
         }
 
@@ -107,13 +82,15 @@ namespace NOOBS_CMDR.Controls.Commands
             SourceCombo.HideSuggestionListBox();
         }
 
-        private void SceneCombo_AutoTextBox_Clicked(object sender, EventArgs e)
+        private void SceneCombo_TextBox_Clicked(object sender, EventArgs e)
         {
+            RefreshScenes();
             SourceCombo.HideSuggestionListBox();
         }
 
-        private void SourceCombo_AutoTextBox_Clicked(object sender, EventArgs e)
+        private void SourceCombo_TextBox_Clicked(object sender, EventArgs e)
         {
+            RefreshSources();
             SceneCombo.HideSuggestionListBox();
         }
     }

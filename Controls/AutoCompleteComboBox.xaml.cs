@@ -23,7 +23,7 @@ namespace NOOBS_CMDR.Controls
         #region Events
 
         public event EventHandler TextChanged;
-        public event EventHandler AutoTextBox_Clicked;
+        public event EventHandler TextBox_Clicked;
 
         #endregion Events
 
@@ -214,8 +214,8 @@ namespace NOOBS_CMDR.Controls
             suggestionListBox.ItemsSource = ItemsSource;
             suggestionListBox.Visibility = Visibility.Visible;
 
-            if (AutoTextBox_Clicked != null)
-                AutoTextBox_Clicked(sender, e);
+            if (TextBox_Clicked != null)
+                TextBox_Clicked(sender, e);
         }
 
         public void HideSuggestionListBox()

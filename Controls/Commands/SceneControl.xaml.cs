@@ -44,13 +44,6 @@ namespace NOOBS_CMDR.Controls.Commands
 
         private void RefreshScenes()
         {
-            if (!Command.obs.IsConnected)
-            {
-                SceneCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> scenes = Command.obs.GetSceneList().Scenes.ConvertAll(x => x.Name);
             SceneCombo.ItemsSource = Command.obs.GetScenes();
         }
 
@@ -60,7 +53,7 @@ namespace NOOBS_CMDR.Controls.Commands
             SceneCombo.HideSuggestionListBox();
         }
 
-        private void SceneCombo_AutoTextBox_Clicked(object sender, EventArgs e)
+        private void SceneCombo_TextBox_Clicked(object sender, EventArgs e)
         {
             RefreshScenes();
         }

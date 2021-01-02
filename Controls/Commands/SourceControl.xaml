@@ -14,9 +14,9 @@
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="SourceStateCombo" Width="150" VerticalAlignment="Top" SelectedValue="{Binding sourceState, Mode=TwoWay}" ToolTip="Set source state"/>
                 <Label Content=" in "/>
-                <controls:AutoCompleteComboBox x:Name="SceneCombo" Width="270" TextChanged="SceneCombo_TextChanged" AutoTextBox_Clicked="SceneCombo_AutoTextBox_Clicked" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene (leave blank to use the active scene)" ToolTip="Enter name of source (leave blank to use the active scene)"/>
+                <controls:AutoCompleteComboBox x:Name="SceneCombo" Width="270" TextChanged="SceneCombo_TextChanged" TextBox_Clicked="SceneCombo_TextBox_Clicked" Text="{Binding sceneName, Mode=TwoWay}" Hint="scene (leave blank to use the active scene)" ToolTip="Enter name of source (leave blank to use the active scene)"/>
                 <Label Content=" with the name "/>
-                <controls:AutoCompleteComboBox x:Name="SourceCombo" Width="270" AutoTextBox_Clicked="SourceCombo_AutoTextBox_Clicked" Text="{Binding sourceName, Mode=TwoWay}" Hint="source" ToolTip="Enter source name"/>
+                <controls:AutoCompleteComboBox x:Name="SourceCombo" Width="270" TextBox_Clicked="SourceCombo_TextBox_Clicked" Text="{Binding sourceName, Mode=TwoWay}" Hint="source" ToolTip="Enter source name"/>
             </StackPanel>
 
         </StackPanel>

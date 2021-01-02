@@ -1,4 +1,5 @@
 ﻿using NOOBS_CMDR.Commands;
+using NOOBS_CMDR.Extensions;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
@@ -56,26 +57,12 @@ namespace NOOBS_CMDR.Controls.Commands
 
         private void RefreshScenes()
         {
-            if (!Command.obs.IsConnected)
-            {
-                SceneCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> scenes = Command.obs.GetSceneList().Scenes.ConvertAll(x => x.Name);
-            SceneCombo.ItemsSource = scenes;
+            SceneCombo.ItemsSource = Command.obs.GetScenes();
         }
 
         private void RefreshTransitions()
         {
-            if (!Command.obs.IsConnected)
-            {
-                TransitionCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> transitions = Command.obs.GetTransitionList().Transitions.ConvertAll(x => x.Name);
-            TransitionCombo.ItemsSource = transitions;
+            TransitionCombo.ItemsSource = Command.obs.GetTransitions();
         }
 
         private void SceneComboSetup()
@@ -94,6 +81,16 @@ namespace NOOBS_CMDR.Controls.Commands
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void SceneCombo_TextBox_Clicked(object sender, EventArgs e)
+        {
+            RefreshScenes();
+        }
+
+        private void TransitionCombo_TextBox_Clicked(object sender, EventArgs e)
+        {
+            RefreshTransitions();
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using NOOBS_CMDR.Commands;
+using NOOBS_CMDR.Extensions;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
@@ -43,14 +44,7 @@ namespace NOOBS_CMDR.Controls.Commands
 
         private void RefreshProfiles()
         {
-            if (!Command.obs.IsConnected)
-            {
-                ProfileCombo.ItemsSource = null;
-                return;
-            }
-
-            List<string> Profiles = Command.obs.ListProfiles();
-            ProfileCombo.ItemsSource = Profiles;
+            ProfileCombo.ItemsSource = Command.obs.GetProfiles();
         }
 
         private void ProfileComboSetup()
@@ -58,6 +52,11 @@ namespace NOOBS_CMDR.Controls.Commands
             List<string> Profiles = Command.obs.ListProfiles();
             ProfileCombo.ItemsSource = Profiles;
             ProfileCombo.HideSuggestionListBox();
+        }
+
+        private void ProfileCombo_TextBox_Clicked(object sender, EventArgs e)
+        {
+            RefreshProfiles();
         }
     }
 }

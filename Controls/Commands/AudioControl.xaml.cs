@@ -87,6 +87,11 @@ namespace NOOBS_CMDR.Controls.Commands
             int i;
             return int.TryParse(str, out i) && i >= 1 && i <= 100;
         }
+
+        private void AudioSourceCombo_TextBox_Clicked(object sender, EventArgs e)
+        {
+            RefreshAudioSources();
+        }
     }
 
     public class Audio_SetVolumeVisConverter : IValueConverter

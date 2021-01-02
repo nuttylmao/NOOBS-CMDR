@@ -1,28 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class AudioCommand : Command, INotifyPropertyChanged
+    public class AudioCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
-
         #region Enums
 
         public enum State
@@ -54,7 +35,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _audioState)
                 {
                     _audioState = value;
-                    OnPropertyChanged("audioState");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -68,7 +49,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _monitoringType)
                 {
                     _monitoringType = value;
-                    OnPropertyChanged("monitoringType");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -82,7 +63,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sourceName)
                 {
                     _sourceName = value;
-                    OnPropertyChanged("sourceName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -96,7 +77,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _volume)
                 {
                     _volume = value;
-                    OnPropertyChanged("volume");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -110,7 +91,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _delay)
                 {
                     _delay = value;
-                    OnPropertyChanged("delay");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -135,15 +116,15 @@ namespace NOOBS_CMDR.Commands
             switch (audioState)
             {
                 case (State.mute):
-                    return string.Format(@"/mute=""{0}""", sourceName);
+                    return $@"/mute=""{sourceName}""";
                 case (State.unmute):
-                    return string.Format(@"/unmute=""{0}""", sourceName);
+                    return $@"/unmute=""{sourceName}""";
                 case (State.toggle):
-                    return string.Format(@"/toggleaudio=""{0}""", sourceName);
+                    return $@"/toggleaudio=""{sourceName}""";
                 case (State.setVolume):
-                    return string.Format(@"/setvolume=""{0}"",{1},{2}", sourceName, volume, delay);
+                    return $@"/setvolume=""{sourceName}"",{volume},{delay}";
                 case (State.setMonitoringType):
-                    return string.Format(@"/command=SetAudioMonitorType,sourceName=""{0}"",monitorType={1}", sourceName, monitoringType);
+                    return $@"/command=SetAudioMonitorType,sourceName=""{sourceName}"",monitorType={monitoringType}";
                 default:
                     return @"";
             }

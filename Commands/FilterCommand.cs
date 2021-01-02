@@ -1,26 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class FilterCommand : Command, INotifyPropertyChanged
+    public class FilterCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region Enums
 
@@ -39,7 +22,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _filterState)
                 {
                     _filterState = value;
-                    OnPropertyChanged("filterState");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -53,7 +36,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sourceName)
                 {
                     _sourceName = value;
-                    OnPropertyChanged("sourceName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -67,7 +50,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _filterName)
                 {
                     _filterName = value;
-                    OnPropertyChanged("filterName");
+                    OnPropertyChanged();
                 }
             }
         }

@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -29,7 +30,7 @@ namespace NOOBS_CMDR
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -60,7 +61,7 @@ namespace NOOBS_CMDR
                 if (value != _obs)
                 {
                     _obs = value;
-                    OnPropertyChanged("obs");
+                    OnPropertyChanged();
                 }
             }
         }

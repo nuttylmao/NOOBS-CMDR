@@ -1,26 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class StudioModeCommand : Command, INotifyPropertyChanged
+    public class StudioModeCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region Enums
 
@@ -44,7 +27,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _studioModeState)
                 {
                     _studioModeState = value;
-                    OnPropertyChanged("studioModeState");
+                    OnPropertyChanged();
                 }
             }
         }

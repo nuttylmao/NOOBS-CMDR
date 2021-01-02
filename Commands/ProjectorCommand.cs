@@ -1,26 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class ProjectorCommand : Command, INotifyPropertyChanged
+    public class ProjectorCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region Enums
 
@@ -46,7 +29,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _projectorType)
                 {
                     _projectorType = value;
-                    OnPropertyChanged("projectorType");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -60,7 +43,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _isFullscreen)
                 {
                     _isFullscreen = value;
-                    OnPropertyChanged("isFullscreen");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -74,7 +57,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _monitor)
                 {
                     _monitor = value;
-                    OnPropertyChanged("monitor");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -88,7 +71,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sceneName)
                 {
                     _sceneName = value;
-                    OnPropertyChanged("sceneName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -102,7 +85,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sourceName)
                 {
                     _sourceName = value;
-                    OnPropertyChanged("sourceName");
+                    OnPropertyChanged();
                 }
             }
         }

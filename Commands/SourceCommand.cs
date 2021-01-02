@@ -1,26 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class SourceCommand : Command, INotifyPropertyChanged
+    public class SourceCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region Enums
 
@@ -44,7 +27,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sourceState)
                 {
                     _sourceState = value;
-                    OnPropertyChanged("sourceState");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -58,7 +41,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sceneName)
                 {
                     _sceneName = value;
-                    OnPropertyChanged("sceneName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -72,7 +55,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sourceName)
                 {
                     _sourceName = value;
-                    OnPropertyChanged("sourceName");
+                    OnPropertyChanged();
                 }
             }
         }

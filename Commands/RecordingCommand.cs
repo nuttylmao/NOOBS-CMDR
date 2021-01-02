@@ -1,26 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class RecordingCommand : Command, INotifyPropertyChanged
+    public class RecordingCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region Enums
 
@@ -46,7 +29,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _recordingStatus)
                 {
                     _recordingStatus = value;
-                    OnPropertyChanged("recordingStatus");
+                    OnPropertyChanged();
                 }
             }
         }

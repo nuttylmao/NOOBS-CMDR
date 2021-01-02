@@ -1,26 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class TransitionCommand : Command, INotifyPropertyChanged
+    public class TransitionCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region Enums
 
@@ -45,7 +28,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _transitionState)
                 {
                     _transitionState = value;
-                    OnPropertyChanged("transitionState");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -59,7 +42,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _duration)
                 {
                     _duration = value;
-                    OnPropertyChanged("duration");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -73,7 +56,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _transitionName)
                 {
                     _transitionName = value;
-                    OnPropertyChanged("transitionName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -87,7 +70,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sceneName)
                 {
                     _sceneName = value;
-                    OnPropertyChanged("sceneName");
+                    OnPropertyChanged();
                 }
             }
         }

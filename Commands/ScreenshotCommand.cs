@@ -1,26 +1,9 @@
 ﻿using OBSWebsocketDotNet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NOOBS_CMDR.Commands
 {
-    public class ScreenshotCommand : Command, INotifyPropertyChanged
+    public class ScreenshotCommand : Command
     {
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region Enums
 
@@ -43,7 +26,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _screenshotType)
                 {
                     _screenshotType = value;
-                    OnPropertyChanged("screenshotType");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -57,7 +40,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sceneName)
                 {
                     _sceneName = value;
-                    OnPropertyChanged("sceneName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -71,7 +54,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _sourceName)
                 {
                     _sourceName = value;
-                    OnPropertyChanged("sourceName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -85,7 +68,7 @@ namespace NOOBS_CMDR.Commands
                 if (value != _saveToFilePath)
                 {
                     _saveToFilePath = value;
-                    OnPropertyChanged("saveToFilePath");
+                    OnPropertyChanged();
                 }
             }
         }

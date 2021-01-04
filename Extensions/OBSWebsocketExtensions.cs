@@ -100,6 +100,13 @@ namespace NOOBS_CMDR.Extensions
                 }
             }
 
+            // Get global audio sources
+            foreach (var specialSource in obs.GetSpecialSources())
+            {
+                if(!string.IsNullOrWhiteSpace(specialSource.Value) && !sources.Contains(specialSource.Value))
+                    sources.Add(specialSource.Value);
+            }
+            
             sources.Sort();
 
             return sources;

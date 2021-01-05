@@ -49,8 +49,7 @@ namespace NOOBS_CMDR.Controls.Commands
 
         private void ProfileComboSetup()
         {
-            List<string> Profiles = Command.obs.ListProfiles();
-            ProfileCombo.ItemsSource = Profiles;
+            RefreshProfiles();
             ProfileCombo.HideSuggestionListBox();
         }
 

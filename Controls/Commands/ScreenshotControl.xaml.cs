@@ -42,6 +42,7 @@ namespace NOOBS_CMDR.Controls.Commands
                 ScreenshotTypeComboSetup();
                 SceneComboSetup();
                 SourceComboSetup();
+                CreateNewComboSetup();
             };
         }
 
@@ -64,6 +65,15 @@ namespace NOOBS_CMDR.Controls.Commands
             SourceCombo.ItemsSource = Command.obs.GetSources(null, true);
         }
 
+        private void CreateNewComboSetup()
+        {
+            this.CreateNewCombo.SelectedValuePath = "Value";
+            this.CreateNewCombo.DisplayMemberPath = "Key";
+
+            CreateNewCombo.Items.Add(new KeyValuePair<string, bool>("Always Create New File", true));
+            CreateNewCombo.Items.Add(new KeyValuePair<string, bool>("Overwrite Existing File", false));
+        }
+
         private void SceneComboSetup()
         {
             RefreshScenes();
@@ -80,7 +90,7 @@ namespace NOOBS_CMDR.Controls.Commands
             dlg.Filter = "Image(*.png)|*.png";
             if (dlg.ShowDialog() == true)
             {
-                Command.saveToFilePath = dlg.FileName.Replace("\\", "/").Replace(".png", " - {TIMESTAMP}.png");
+                Command.saveToFilePath = dlg.FileName.Replace("\\", "/");
             }
         }
 

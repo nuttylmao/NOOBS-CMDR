@@ -62,7 +62,10 @@ namespace NOOBS_CMDR.Commands
         private string _saveToFilePath;
         public string saveToFilePath
         {
-            get { return _saveToFilePath; }
+            get
+            {
+                return _saveToFilePath;
+            }
             set
             {
                 if (value != _saveToFilePath)
@@ -70,6 +73,35 @@ namespace NOOBS_CMDR.Commands
                     _saveToFilePath = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        private bool _createNewFile;
+        public bool createNewFile
+        {
+            get { return _createNewFile; }
+            set
+            {
+                if (value != _createNewFile)
+                {
+                    _createNewFile = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public string saveToFilePathWithTimestamp
+        {
+            get
+            {
+                if (saveToFilePath == null)
+                    return null;
+
+                if (createNewFile)
+                    return saveToFilePath.Replace("\\", "/").Replace(".png", " - {TIMESTAMP}.png");
+                else
+                    return saveToFilePath;
             }
         }
 
@@ -88,7 +120,7 @@ namespace NOOBS_CMDR.Commands
 
         public override string ToString()
         {
-            return string.Format(@"/command=TakeSourceScreenshot,sourceName=""{0}"",embedPictureFormat=""png"",saveToFilePath=""{1}""", screenshotType == Type.Scene ? sceneName : sourceName, saveToFilePath);
+            return string.Format(@"/command=TakeSourceScreenshot,sourceName=""{0}"",embedPictureFormat=""png"",saveToFilePath=""{1}""", screenshotType == Type.Scene ? sceneName : sourceName, saveToFilePathWithTimestamp);
         }
 
         public override Command Clone()

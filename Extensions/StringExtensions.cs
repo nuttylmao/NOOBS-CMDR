@@ -45,9 +45,14 @@ namespace NOOBS_CMDR.Extensions
             }
         }
 
-        public static string ReplaceDate(this String str)
+        public static string RemoveDate(this String str)
         {
-            return str.Replace("%datetime%", "{TIMESTAMP}").Replace(@""" + sprintf(""{0:yyyy-MM-dd hh-mm-ss}"", Array(datetime)) + """, "{TIMESTAMP}");
+            return str.Replace(" - %datetime%", "").Replace(@" - "" + sprintf(""{0:yyyy-MM-dd hh-mm-ss}"", Array(datetime)) + """, " - %datetime%");
+        }
+
+        public static bool IncludesDate(this String str)
+        {
+            return (str.Contains(" - %datetime%") || str.Contains(@" - "" + sprintf(""{0:yyyy-MM-dd hh-mm-ss}"", Array(datetime)) + """));
         }
     }
 }

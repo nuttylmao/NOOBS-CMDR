@@ -477,7 +477,7 @@ namespace NOOBS_CMDR
             strCmdText += Environment.NewLine;
 
             // Need to set up date variable for screenshots
-            if (commandList.OfType<ScreenshotCommand>().Any())
+            if (commandList.OfType<ScreenshotCommand>().Where(x => x.createNewFile).ToList().Count > 0)
             {
                 strCmdText += @"FOR /f ""tokens=2 delims=="" %%G in ('wmic os get localdatetime /value') do set datetime=%%G";
                 strCmdText += Environment.NewLine;
@@ -507,7 +507,7 @@ namespace NOOBS_CMDR
             strCmdText += Environment.NewLine;
 
             // Need to set up date variable for screenshots
-            if (commandList.OfType<ScreenshotCommand>().Any())
+            if (commandList.OfType<ScreenshotCommand>().Where(x => x.createNewFile).ToList().Count > 0)
             {
                 strCmdText += @"Dim g_oSB : Set g_oSB = CreateObject(""System.Text.StringBuilder"")";
                 strCmdText += Environment.NewLine;
@@ -939,7 +939,9 @@ namespace NOOBS_CMDR
                                 }
                             }
 
-                            saveToFilePath = saveToFilePath.ReplaceDate();
+                            bool includesDate = saveToFilePath.IncludesDate();
+
+                            saveToFilePath = saveToFilePath.RemoveDate();
 
                             if (obs.GetSceneList().Scenes.ConvertAll(x => x.Name).Contains(sourceName))
                             {
@@ -947,7 +949,8 @@ namespace NOOBS_CMDR
                                 {
                                     screenshotType = ScreenshotCommand.Type.Scene,
                                     sceneName = sourceName,
-                                    saveToFilePath = saveToFilePath
+                                    saveToFilePath = saveToFilePath,
+                                    createNewFile = includesDate
                                 });
                             }
                             else
@@ -956,7 +959,8 @@ namespace NOOBS_CMDR
                                 {
                                     screenshotType = ScreenshotCommand.Type.Source,
                                     sourceName = sourceName,
-                                    saveToFilePath = saveToFilePath
+                                    saveToFilePath = saveToFilePath,
+                                    createNewFile = includesDate
                                 });
                             }
                         }
@@ -1082,7 +1086,7 @@ namespace NOOBS_CMDR
             {
                 if (line.StartsWith("WshShell.Run ") && line.EndsWith(", 0"))
                 {
-                    string cmd = line.ReplaceDate();
+                    string cmd = line.RemoveDate();
                     cmd = cmd.Remove(cmd.Length - 4);
                     cmd = cmd.Substring(14);
 

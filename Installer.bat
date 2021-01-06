@@ -1,2 +1,2 @@
-xcopy "%~dp0OBSCommand" C:\Windows\System32
+xcopy "%~dp0OBSCommand" C:\Windows\System32 /y
 pause

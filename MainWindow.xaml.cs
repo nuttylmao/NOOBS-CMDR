@@ -13,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Security;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,14 +78,7 @@ namespace NOOBS_CMDR
             InitializeComponent();
             this.DataContext = this;
 
-            var enviromentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
-            
-            var paths = enviromentPath.Split(';');
-            var exePath = paths.Select(x => Path.Combine(x, "OBSCommand.exe"))
-                               .Where(x => File.Exists(x))
-                               .FirstOrDefault();
-            
-            if (string.IsNullOrWhiteSpace(exePath))
+            if (!OBSCommandExists())
             {
                 MessageBox.Show(@"Please run ""Installer.bat"" in admin mode.", "OBSCommand Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
                 System.Environment.Exit(1);
@@ -139,6 +131,15 @@ namespace NOOBS_CMDR
         #endregion Constructors
 
         #region Functions
+
+        public bool OBSCommandExists()
+        {
+            return
+                File.Exists(@"C:\Windows\SysNative\OBSCommand.exe")
+                && File.Exists(@"C:\Windows\SysNative\Newtonsoft.Json.dll")
+                && File.Exists(@"C:\Windows\SysNative\obs-websocket-dotnet.dll")
+                && File.Exists(@"C:\Windows\SysNative\websocket-sharp.dll");
+        }
 
         private void CreateActionTypes()
         {
@@ -302,13 +303,12 @@ namespace NOOBS_CMDR
 
         private void TestCommands(List<Command> commandList)
         {
-            var enviromentPath = System.Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
-
-            var paths = enviromentPath.Split(';');
-            var exePath = paths.Select(x => Path.Combine(x, "OBSCommand.exe"))
-                               .Where(x => File.Exists(x))
-                               .FirstOrDefault();
-
+            if (!OBSCommandExists())
+            {
+                MessageBox.Show(@"Please run ""Installer.bat"" in admin mode.", "OBSCommand Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            
             string strCmdText;
             strCmdText = string.Format(@"/server={0}:{1} /password=""{2}""", ServerText.Text, PortText.Text, PasswordText.Password);
 
@@ -328,7 +328,7 @@ namespace NOOBS_CMDR
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
-                    FileName = exePath,
+                    FileName = @"C:\Windows\SysNative\OBSCommand.exe",
                     Arguments = strCmdText
                 }
             };

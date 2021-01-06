@@ -49,9 +49,9 @@ namespace NOOBS_CMDR.Controls.Commands
             this.SourceStateCombo.SelectedValuePath = "Value";
             this.SourceStateCombo.DisplayMemberPath = "Key";
 
+            SourceStateCombo.Items.Add(new KeyValuePair<string, SourceCommand.State>("Toggle Source", SourceCommand.State.Toggle));
             SourceStateCombo.Items.Add(new KeyValuePair<string, SourceCommand.State>("Show Source", SourceCommand.State.Show));
             SourceStateCombo.Items.Add(new KeyValuePair<string, SourceCommand.State>("Hide Source", SourceCommand.State.Hide));
-            SourceStateCombo.Items.Add(new KeyValuePair<string, SourceCommand.State>("Toggle Source", SourceCommand.State.Toggle));
         }
 
         private void RefreshScenes()

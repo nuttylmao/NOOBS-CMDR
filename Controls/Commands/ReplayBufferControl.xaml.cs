@@ -44,9 +44,9 @@ namespace NOOBS_CMDR.Controls.Commands
             this.ReplayBufferStateCombo.SelectedValuePath = "Value";
             this.ReplayBufferStateCombo.DisplayMemberPath = "Key";
 
+            ReplayBufferStateCombo.Items.Add(new KeyValuePair<string, ReplayBufferCommand.State>("Toggle Replay Buffer", ReplayBufferCommand.State.Toggle));
             ReplayBufferStateCombo.Items.Add(new KeyValuePair<string, ReplayBufferCommand.State>("Start Replay Buffer", ReplayBufferCommand.State.Start));
             ReplayBufferStateCombo.Items.Add(new KeyValuePair<string, ReplayBufferCommand.State>("Stop Replay Buffer", ReplayBufferCommand.State.Stop));
-            ReplayBufferStateCombo.Items.Add(new KeyValuePair<string, ReplayBufferCommand.State>("Toggle Replay Buffer", ReplayBufferCommand.State.Toggle));
             ReplayBufferStateCombo.Items.Add(new KeyValuePair<string, ReplayBufferCommand.State>("Save Replay Buffer", ReplayBufferCommand.State.Save));
         }
     }

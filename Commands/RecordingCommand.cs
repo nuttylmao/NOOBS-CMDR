@@ -9,9 +9,9 @@ namespace NOOBS_CMDR.Commands
 
         public enum Status
         {
+            Toggle,
             Start,
             Stop,
-            Toggle,
             Pause,
             Resume
         }

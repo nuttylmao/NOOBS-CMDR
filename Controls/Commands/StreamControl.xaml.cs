@@ -44,9 +44,9 @@ namespace NOOBS_CMDR.Controls.Commands
             this.StreamingStatusCombo.SelectedValuePath = "Value";
             this.StreamingStatusCombo.DisplayMemberPath = "Key";
 
+            StreamingStatusCombo.Items.Add(new KeyValuePair<string, StreamCommand.Status>("Toggle Stream", StreamCommand.Status.Toggle));
             StreamingStatusCombo.Items.Add(new KeyValuePair<string, StreamCommand.Status>("Start Stream", StreamCommand.Status.Start));
             StreamingStatusCombo.Items.Add(new KeyValuePair<string, StreamCommand.Status>("Stop Stream", StreamCommand.Status.Stop));
-            StreamingStatusCombo.Items.Add(new KeyValuePair<string, StreamCommand.Status>("Toggle Stream", StreamCommand.Status.Toggle));
         }
     }
 }

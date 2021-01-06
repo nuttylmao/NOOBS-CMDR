@@ -43,9 +43,9 @@ namespace NOOBS_CMDR.Controls.Commands
             this.RecordingStatusCombo.SelectedValuePath = "Value";
             this.RecordingStatusCombo.DisplayMemberPath = "Key";
 
+            RecordingStatusCombo.Items.Add(new KeyValuePair<string, RecordingCommand.Status>("Toggle Recording", RecordingCommand.Status.Toggle));
             RecordingStatusCombo.Items.Add(new KeyValuePair<string, RecordingCommand.Status>("Start Recording", RecordingCommand.Status.Start));
             RecordingStatusCombo.Items.Add(new KeyValuePair<string, RecordingCommand.Status>("Stop Recording", RecordingCommand.Status.Stop));
-            RecordingStatusCombo.Items.Add(new KeyValuePair<string, RecordingCommand.Status>("Toggle Recording", RecordingCommand.Status.Toggle));
             RecordingStatusCombo.Items.Add(new KeyValuePair<string, RecordingCommand.Status>("Pause Recording", RecordingCommand.Status.Pause));
             RecordingStatusCombo.Items.Add(new KeyValuePair<string, RecordingCommand.Status>("Resume Recording", RecordingCommand.Status.Resume));
         }

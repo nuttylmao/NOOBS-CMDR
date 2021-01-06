@@ -4,13 +4,14 @@ namespace NOOBS_CMDR.Commands
 {
     public class AudioCommand : Command
     {
+
         #region Enums
 
         public enum State
         {
+            toggle,
             mute,
             unmute,
-            toggle,
             setVolume,
             setMonitoringType
         }

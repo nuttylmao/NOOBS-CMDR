@@ -49,9 +49,9 @@ namespace NOOBS_CMDR.Controls.Commands
             this.AudioStateCombo.SelectedValuePath = "Value";
             this.AudioStateCombo.DisplayMemberPath = "Key";
 
+            AudioStateCombo.Items.Add(new KeyValuePair<string, AudioCommand.State>("Toggle Audio", AudioCommand.State.toggle));
             AudioStateCombo.Items.Add(new KeyValuePair<string, AudioCommand.State>("Mute Audio", AudioCommand.State.mute));
             AudioStateCombo.Items.Add(new KeyValuePair<string, AudioCommand.State>("Unmute Audio", AudioCommand.State.unmute));
-            AudioStateCombo.Items.Add(new KeyValuePair<string, AudioCommand.State>("Toggle Audio", AudioCommand.State.toggle));
             AudioStateCombo.Items.Add(new KeyValuePair<string, AudioCommand.State>("Set Volume", AudioCommand.State.setVolume));
             AudioStateCombo.Items.Add(new KeyValuePair<string, AudioCommand.State>("Set Audio Monitoring Type", AudioCommand.State.setMonitoringType));
         }

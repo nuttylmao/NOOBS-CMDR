@@ -9,9 +9,9 @@ namespace NOOBS_CMDR.Commands
 
         public enum State
         {
+            Toggle,
             Enable,
-            Disable,
-            Toggle
+            Disable
         }
 
         #endregion Enums

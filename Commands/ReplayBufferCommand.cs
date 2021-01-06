@@ -9,9 +9,9 @@ namespace NOOBS_CMDR.Commands
 
         public enum State
         {
+            Toggle,
             Start,
             Stop,
-            Toggle,
             Save
         }
 

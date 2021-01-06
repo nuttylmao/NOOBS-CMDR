@@ -44,9 +44,9 @@ namespace NOOBS_CMDR.Controls.Commands
             this.StudioModeStateCombo.SelectedValuePath = "Value";
             this.StudioModeStateCombo.DisplayMemberPath = "Key";
 
+            StudioModeStateCombo.Items.Add(new KeyValuePair<string, StudioModeCommand.State>("Toggle Studio Mode", StudioModeCommand.State.Toggle));
             StudioModeStateCombo.Items.Add(new KeyValuePair<string, StudioModeCommand.State>("Enable Studio Mode", StudioModeCommand.State.Enable));
             StudioModeStateCombo.Items.Add(new KeyValuePair<string, StudioModeCommand.State>("Disable Studio Mode", StudioModeCommand.State.Disable));
-            StudioModeStateCombo.Items.Add(new KeyValuePair<string, StudioModeCommand.State>("Toggle Studio Mode", StudioModeCommand.State.Toggle));
         }
     }
 }

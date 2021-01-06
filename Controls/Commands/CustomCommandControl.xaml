@@ -19,7 +19,7 @@
                 </Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <controls:HintTextBox x:Name="CustomCommandField" MinWidth="500" Text="{Binding command}" Hint="/command=mycommand,myparam1=myvalue1..." ToolTip="Type a custom command"/>
+                <controls:HintTextBox x:Name="CustomCommandField" MinWidth="500" Text="{Binding command, Mode=TwoWay}" Hint="/command=mycommand,myparam1=myvalue1..." ToolTip="Type a custom command"/>
             </StackPanel>
 
         </StackPanel>

@@ -35,7 +35,7 @@ namespace NOOBS_CMDR.Extensions
             // Get list of source types that have audio
             List<string> sources = new List<string>();
 
-            if (sceneName != null)
+            if (!string.IsNullOrWhiteSpace(sceneName))
             {
                 foreach (OBSScene scene in obs.GetSceneList().Scenes)
                 {
@@ -67,6 +67,13 @@ namespace NOOBS_CMDR.Extensions
                         if (!sources.Contains(source.SourceName) && source.InternalType != "scene")
                             sources.Add(source.SourceName);
                     }
+                }
+
+                // Get global audio sources
+                foreach (var specialSource in obs.GetSpecialSources())
+                {
+                    if (!string.IsNullOrWhiteSpace(specialSource.Value) && !sources.Contains(specialSource.Value))
+                        sources.Add(specialSource.Value);
                 }
 
                 sources.Sort();

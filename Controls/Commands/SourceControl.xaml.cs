@@ -62,7 +62,6 @@ namespace NOOBS_CMDR.Controls.Commands
         private void RefreshSources()
         {
             SourceCombo.ItemsSource = Command.obs.GetSources(Command.sceneName);
-            SourceCombo.autoTextBox.Text = "";
         }
 
         private void SceneComboSetup()
@@ -73,6 +72,7 @@ namespace NOOBS_CMDR.Controls.Commands
 
         private void SourceComboSetup()
         {
+            RefreshSources();
             SourceCombo.HideSuggestionListBox();
         }
 
@@ -80,6 +80,7 @@ namespace NOOBS_CMDR.Controls.Commands
         {
             RefreshSources();
             SourceCombo.HideSuggestionListBox();
+            SourceCombo.autoTextBox.Text = "";
         }
 
         private void SceneCombo_TextBox_Clicked(object sender, EventArgs e)

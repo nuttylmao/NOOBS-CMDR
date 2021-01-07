@@ -61,7 +61,6 @@ namespace NOOBS_CMDR.Controls.Commands
         private void RefreshFilters()
         {
             FilterCombo.ItemsSource = Command.obs.GetFilters(Command.sourceName);
-            FilterCombo.autoTextBox.Text = "";
         }
 
         private void SourceComboSetup()
@@ -79,6 +78,7 @@ namespace NOOBS_CMDR.Controls.Commands
         {
             RefreshFilters();
             FilterCombo.HideSuggestionListBox();
+            FilterCombo.autoTextBox.Text = "";
         }
 
         private void SourceCombo_TextBox_Clicked(object sender, EventArgs e)

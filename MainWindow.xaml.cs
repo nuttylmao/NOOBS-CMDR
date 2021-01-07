@@ -326,6 +326,8 @@ namespace NOOBS_CMDR
 
             Console.WriteLine(strCmdText);
 
+            string windir = Environment.ExpandEnvironmentVariables(@"%windir%");
+
             Process process = new Process
             {
                 StartInfo =
@@ -334,7 +336,7 @@ namespace NOOBS_CMDR
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
-                    FileName = @"%windir%\System32\OBSCommand.exe",
+                    FileName = $"{windir}\\System32\\OBSCommand.exe",
                     Arguments = strCmdText
                 }
             };

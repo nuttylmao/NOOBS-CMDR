@@ -134,11 +134,17 @@ namespace NOOBS_CMDR
 
         public bool OBSCommandExists()
         {
+            string windir = Environment.ExpandEnvironmentVariables(@"%windir%\");
+
             return
-                File.Exists(@"C:\Windows\SysNative\OBSCommand.exe")
-                && File.Exists(@"C:\Windows\SysNative\Newtonsoft.Json.dll")
-                && File.Exists(@"C:\Windows\SysNative\obs-websocket-dotnet.dll")
-                && File.Exists(@"C:\Windows\SysNative\websocket-sharp.dll");
+                File.Exists($"{windir}\\System32\\OBSCommand.exe")
+                && File.Exists($"{windir}\\System32\\Newtonsoft.Json.dll")
+                && File.Exists($"{windir}\\System32\\obs-websocket-dotnet.dll")
+                && File.Exists($"{windir}\\System32\\websocket-sharp.dll")
+                && File.Exists($"{windir}\\Sysnative\\OBSCommand.exe")
+                && File.Exists($"{windir}\\Sysnative\\Newtonsoft.Json.dll")
+                && File.Exists($"{windir}\\Sysnative\\obs-websocket-dotnet.dll")
+                && File.Exists($"{windir}\\Sysnative\\websocket-sharp.dll");
         }
 
         private void CreateActionTypes()
@@ -328,7 +334,7 @@ namespace NOOBS_CMDR
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
-                    FileName = @"C:\Windows\SysNative\OBSCommand.exe",
+                    FileName = @"%windir%\System32\OBSCommand.exe",
                     Arguments = strCmdText
                 }
             };

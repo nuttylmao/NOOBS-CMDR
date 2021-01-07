@@ -37,15 +37,9 @@ namespace NOOBS_CMDR.Extensions
 
             if (!string.IsNullOrWhiteSpace(sceneName))
             {
-                foreach (OBSScene scene in obs.GetSceneList().Scenes)
+                foreach (var source in obs.GetSourcesList())
                 {
-                    if (scene.Name == sceneName || string.IsNullOrWhiteSpace(scene.Name))
-                    {
-                        foreach (SceneItem source in scene.Items)
-                        {
-                            sources.Add(source.SourceName);
-                        }
-                    }
+                    sources.Add(source.Name);
                 }
             }
             else
@@ -60,13 +54,9 @@ namespace NOOBS_CMDR.Extensions
                 }
 
                 // Add sources
-                foreach (OBSScene scene in obs.GetSceneList().Scenes)
+                foreach (var source in obs.GetSourcesList())
                 {
-                    foreach (SceneItem source in scene.Items)
-                    {
-                        if (!sources.Contains(source.SourceName) && source.InternalType != "scene")
-                            sources.Add(source.SourceName);
-                    }
+                    sources.Add(source.Name);
                 }
 
                 // Get global audio sources

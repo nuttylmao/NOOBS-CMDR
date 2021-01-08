@@ -18,6 +18,9 @@ namespace NOOBS_CMDR.Extensions
 
         public static string RemoveQuotes(this String str)
         {
+            if (str == null)
+                return null;
+
             if (str.StartsWith(@"""") && str.EndsWith(@""""))
             {
                 str = str.Remove(str.Length - 1);
@@ -29,11 +32,17 @@ namespace NOOBS_CMDR.Extensions
 
         public static string RemoveBeforeChar(this String str, Char character)
         {
+            if (str == null)
+                return null;
+
             return str.Substring(str.IndexOf(character) + 1);
         }
 
         public static string ReplaceTimestamp(this String str, TimestampType timestampType = TimestampType.Testing)
         {
+            if (str == null)
+                return null;
+
             switch (timestampType)
             {
                 case (TimestampType.Batch):
@@ -47,11 +56,17 @@ namespace NOOBS_CMDR.Extensions
 
         public static string RemoveDate(this String str)
         {
+            if (str == null)
+                return null;
+
             return str.Replace(" - %datetime%", "").Replace(@" - "" + sprintf(""{0:yyyy-MM-dd hh-mm-ss}"", Array(datetime)) + """, " - %datetime%");
         }
 
         public static bool IncludesDate(this String str)
         {
+            if (str == null)
+                return false;
+
             return (str.Contains(" - %datetime%") || str.Contains(@" - "" + sprintf(""{0:yyyy-MM-dd hh-mm-ss}"", Array(datetime)) + """));
         }
     }

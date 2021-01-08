@@ -19,6 +19,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Security.Principal;
 
 namespace NOOBS_CMDR
 {
@@ -78,10 +79,76 @@ namespace NOOBS_CMDR
             InitializeComponent();
             this.DataContext = this;
 
+            // Check that all OBSCommand files exist and that environment PATH variable is set up
             if (!OBSCommandExists())
             {
-                MessageBox.Show(@"Please run ""Installer.bat"" in admin mode.", "OBSCommand Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
-                System.Environment.Exit(1);
+
+                // OBSCommand not found, so need to install it but this needs to be done in admin mode
+                if (!IsAdministrator())
+                {
+                    MessageBox.Show(@"Please restart in admin mode to install OBSCommand.", "OBSCommand Not Installed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    System.Environment.Exit(1);
+                }
+                else
+                {
+                    // Ask user to select directory
+                    const string message ="Before using NOOBS CMDR, you must install OBSCommand. Choose a directory to install OBSCommand.";
+                    const string caption = "NOOBS CMDR Install";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButton.OKCancel,
+                                                 MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        // Check that all OBSCommand files exist in NOOBS CMDR folder
+                        string sourcePath = $"{System.AppDomain.CurrentDomain.BaseDirectory}OBSCommand";
+
+                        // If they don't exist, we can't install OBSCommand
+                        if (!File.Exists($"{sourcePath}\\OBSCommand.exe") || !File.Exists($"{sourcePath}\\Newtonsoft.Json.dll") || !File.Exists($"{sourcePath}\\obs-websocket-dotnet.dll") || !File.Exists($"{sourcePath}\\websocket-sharp.dll"))
+                        {
+                            MessageBox.Show(@"Could not find OBSCommand Files. Please re-download NOOBS CMDR.", "OBSCommand Files Missing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            System.Environment.Exit(1);
+                        }
+
+                        // Ask user to select directory
+                        System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
+                        
+                        // Default to the Program Files directory
+                        dlg.SelectedPath = Environment.Is64BitOperatingSystem ? Environment.GetEnvironmentVariable("ProgramFiles(x86)") : Environment.GetEnvironmentVariable("ProgramFiles");
+
+                        // User selects OK
+                        if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            string selectedPath = $"{dlg.SelectedPath}\\OBSCommand";
+
+                            // Create OBSCommand folder automatically + copy all OBSCommand files
+                            Directory.CreateDirectory($"{dlg.SelectedPath}\\OBSCommand");
+                            File.Copy($"{sourcePath}\\OBSCommand.exe", $"{selectedPath}\\OBSCommand.exe", true);
+                            File.Copy($"{sourcePath}\\Newtonsoft.Json.dll", $"{selectedPath}\\Newtonsoft.Json.dll", true);
+                            File.Copy($"{sourcePath}\\obs-websocket-dotnet.dll", $"{selectedPath}\\obs-websocket-dotnet.dll", true);
+                            File.Copy($"{sourcePath}\\websocket-sharp.dll", $"{selectedPath}\\websocket-sharp.dll", true);
+
+                            // Check the environment PATH variable
+                            string enviromentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
+                            
+                            // If the selected directory does not exist in the PATH variable, we need to add it
+                            if (!enviromentPath.Contains(selectedPath))
+                            {
+                                Environment.SetEnvironmentVariable("PATH", $"{enviromentPath};{selectedPath}", EnvironmentVariableTarget.Machine);
+                            }
+
+                            MessageBox.Show(@"NOOBS CMDR is now ready to use.", "OBSCommand Successfully Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            System.Environment.Exit(1);
+                        }
+                    }
+                    else
+                    {
+                        System.Environment.Exit(1);
+                    }
+                }
             }
 
             ServerText.Text = ConfigurationManager.AppSettings.Get("Server");
@@ -132,19 +199,34 @@ namespace NOOBS_CMDR
 
         #region Functions
 
+        public static bool IsAdministrator()
+        {
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
         public bool OBSCommandExists()
         {
-            string windir = Environment.ExpandEnvironmentVariables(@"%windir%\");
+            var enviromentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
+
+            var paths = enviromentPath.Split(';');
+            var exePath = paths.Select(x => Path.Combine(x, "OBSCommand.exe"))
+                               .Where(x => File.Exists(x))
+                               .FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(exePath))
+            {
+                return false;
+            }
+
+            string path = exePath.Replace(@"\OBSCommand.exe", "");
 
             return
-                File.Exists($"{windir}\\System32\\OBSCommand.exe")
-                && File.Exists($"{windir}\\System32\\Newtonsoft.Json.dll")
-                && File.Exists($"{windir}\\System32\\obs-websocket-dotnet.dll")
-                && File.Exists($"{windir}\\System32\\websocket-sharp.dll")
-                && File.Exists($"{windir}\\Sysnative\\OBSCommand.exe")
-                && File.Exists($"{windir}\\Sysnative\\Newtonsoft.Json.dll")
-                && File.Exists($"{windir}\\Sysnative\\obs-websocket-dotnet.dll")
-                && File.Exists($"{windir}\\Sysnative\\websocket-sharp.dll");
+                File.Exists($"{path}\\OBSCommand.exe")
+                && File.Exists($"{path}\\Newtonsoft.Json.dll")
+                && File.Exists($"{path}\\obs-websocket-dotnet.dll")
+                && File.Exists($"{path}\\websocket-sharp.dll");
         }
 
         private void CreateActionTypes()
@@ -311,7 +393,7 @@ namespace NOOBS_CMDR
         {
             if (!OBSCommandExists())
             {
-                MessageBox.Show(@"Please run ""Installer.bat"" in admin mode.", "OBSCommand Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(@"Please restart in admin mode to install OBSCommand.", "OBSCommand Not Installed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             
@@ -326,7 +408,12 @@ namespace NOOBS_CMDR
 
             Console.WriteLine(strCmdText);
 
-            string windir = Environment.ExpandEnvironmentVariables(@"%windir%");
+            var enviromentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
+
+            var paths = enviromentPath.Split(';');
+            var exePath = paths.Select(x => Path.Combine(x, "OBSCommand.exe"))
+                               .Where(x => File.Exists(x))
+                               .FirstOrDefault();
 
             Process process = new Process
             {
@@ -336,7 +423,7 @@ namespace NOOBS_CMDR
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
-                    FileName = $"{windir}\\System32\\OBSCommand.exe",
+                    FileName = exePath,
                     Arguments = strCmdText
                 }
             };

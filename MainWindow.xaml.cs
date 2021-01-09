@@ -355,6 +355,11 @@ namespace NOOBS_CMDR
                     MessageBox.Show("Connect failed : " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Connect failed : " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
             }
             else
             {

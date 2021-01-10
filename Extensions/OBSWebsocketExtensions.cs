@@ -37,9 +37,15 @@ namespace NOOBS_CMDR.Extensions
 
             if (!string.IsNullOrWhiteSpace(sceneName))
             {
-                foreach (var source in obs.GetSourcesList())
+                foreach (OBSScene scene in obs.GetSceneList().Scenes)
                 {
-                    sources.Add(source.Name);
+                    if (scene.Name == sceneName || string.IsNullOrWhiteSpace(scene.Name))
+                    {
+                        foreach (SceneItem source in scene.Items)
+                        {
+                            sources.Add(source.SourceName);
+                        }
+                    }
                 }
             }
             else

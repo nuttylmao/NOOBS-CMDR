@@ -348,6 +348,7 @@ namespace NOOBS_CMDR
                 catch (AuthFailureException)
                 {
                     MessageBox.Show("Authentication failed.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    obs.Disconnect();
                     return;
                 }
                 catch (ErrorResponseException ex)
@@ -432,7 +433,16 @@ namespace NOOBS_CMDR
                     Arguments = strCmdText
                 }
             };
-            process.Start();
+
+            try
+            {
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Test failed : " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
         }
 
         private void TestCommandBtn_Click(object sender, RoutedEventArgs e)

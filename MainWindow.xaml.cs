@@ -576,13 +576,15 @@ namespace NOOBS_CMDR
                 string path = dlg.FileName.Substring(0, dlg.FileName.LastIndexOf("\\") + 1);
                 string filename = Path.GetFileNameWithoutExtension(dlg.FileName);
                 File.WriteAllText(string.Format(@"{0}\\{1}.bat", path, filename), CommandsToBatch(Commands.ToList()));
-                File.WriteAllText(string.Format(@"{0}\\{1}.vbs", path, filename), CommandsToVBS(Commands.ToList()));
+                File.WriteAllText(string.Format(@"{0}\\{1}.vbs", path, filename), CommandsToVBS(Commands.ToList()), System.Text.Encoding.Unicode);
             }
         }
 
         private string CommandsToBatch(List<Command> commandList)
         {
             string strCmdText = string.Format(@"::::: GENERATED WITH NOOBS CMDR v{0} :::::", typeof(NOOBS_CMDR_Homepage).Assembly.GetName().Version);
+            strCmdText += Environment.NewLine;
+            strCmdText += @"chcp 65001";
             strCmdText += Environment.NewLine;
             strCmdText += Environment.NewLine;
 

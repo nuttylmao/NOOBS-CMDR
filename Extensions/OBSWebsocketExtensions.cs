@@ -115,6 +115,44 @@ namespace NOOBS_CMDR.Extensions
             return sources;
         }
 
+        public static List<string> GetMediaSources(this OBSWebsocket obs)
+        {
+            // Don't return anything if you're not connected to OBS Websockets
+            if (!obs.IsConnected)
+                return null;
+
+            // Get list of source types that have audio
+            List<string> sourceTypes = new List<string>();
+            sourceTypes.Add("ffmpeg_source");
+            sourceTypes.Add("vlc_source");
+
+            List<string> sources = new List<string>();
+
+            // Get a list of all sources that have audio
+            foreach (OBSScene scene in obs.GetSceneList().Scenes)
+            {
+                foreach (SceneItem source in scene.Items)
+                {
+                    if (sourceTypes.Contains(source.InternalType))
+                    {
+                        if (!sources.Contains(source.SourceName))
+                            sources.Add(source.SourceName);
+                    }
+                }
+            }
+
+            // Get global audio sources
+            foreach (var specialSource in obs.GetSpecialSources())
+            {
+                if (!string.IsNullOrWhiteSpace(specialSource.Value) && !sources.Contains(specialSource.Value))
+                    sources.Add(specialSource.Value);
+            }
+
+            sources.Sort();
+
+            return sources;
+        }
+
         public static List<string> GetFilters(this OBSWebsocket obs, string sourceName)
         {
             if (!obs.IsConnected)

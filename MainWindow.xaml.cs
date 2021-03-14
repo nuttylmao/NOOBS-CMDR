@@ -238,6 +238,7 @@ namespace NOOBS_CMDR
             CommandTypes.Add(new CommandType("Source", CommandType.Type.Source));
             CommandTypes.Add(new CommandType("Filter", CommandType.Type.Filter));
             CommandTypes.Add(new CommandType("Audio", CommandType.Type.Audio));
+            CommandTypes.Add(new CommandType("Media Control", CommandType.Type.Media));
             CommandTypes.Add(new CommandType("Transition", CommandType.Type.Transition));
             CommandTypes.Add(new CommandType("Studio Mode", CommandType.Type.StudioMode));
             CommandTypes.Add(new CommandType("Screenshot", CommandType.Type.Screenshot));
@@ -293,6 +294,9 @@ namespace NOOBS_CMDR
                     break;
                 case CommandType.Type.Audio:
                     Commands.Add(new AudioCommand(obs));
+                    break;
+                case CommandType.Type.Media:
+                    Commands.Add(new MediaCommand(obs));
                     break;
                 case CommandType.Type.Transition:
                     Commands.Add(new TransitionCommand(obs));
@@ -935,6 +939,127 @@ namespace NOOBS_CMDR
                                 audioState = AudioCommand.State.setMonitoringType,
                                 sourceName = sourceName,
                                 monitoringType = monitorType
+                            });
+                        }
+                        else if (cmdText.StartsWith("/command=PlayPauseMedia,"))
+                        {
+                            string parString = cmdText.RemoveBeforeChar(',');
+                            string[] pars = Regex.Split(parString, "[,](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                            string sourceName = "";
+                            MediaCommand.ControlType controlType = MediaCommand.ControlType.play;
+
+                            foreach (string par in pars)
+                            {
+                                if (par.StartsWith("sourceName"))
+                                {
+                                    sourceName = par.RemoveBeforeChar('=').RemoveQuotes();
+                                }
+                                else if (par.StartsWith("playPause"))
+                                {
+                                    if (par.RemoveBeforeChar('=') == "False")
+                                    {
+                                        controlType = MediaCommand.ControlType.play;
+                                    }
+                                    else if (par.RemoveBeforeChar('=') == "True")
+                                    {
+                                        controlType = MediaCommand.ControlType.pause;
+                                    }
+                                }
+                            }
+
+                            Commands.Add(new MediaCommand(obs)
+                            {
+                                sourceName = sourceName,
+                                controlType = controlType
+                            });
+                        }
+                        else if (cmdText.StartsWith("/command=RestartMedia,"))
+                        {
+                            string parString = cmdText.RemoveBeforeChar(',');
+                            string[] pars = Regex.Split(parString, "[,](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                            string sourceName = "";
+                            MediaCommand.ControlType state = MediaCommand.ControlType.restart;
+
+                            foreach (string par in pars)
+                            {
+                                if (par.StartsWith("sourceName"))
+                                {
+                                    sourceName = par.RemoveBeforeChar('=').RemoveQuotes();
+                                }
+                            }
+
+                            Commands.Add(new MediaCommand(obs)
+                            {
+                                sourceName = sourceName,
+                                controlType = state
+                            });
+                        }
+                        else if (cmdText.StartsWith("/command=StopMedia,"))
+                        {
+                            string parString = cmdText.RemoveBeforeChar(',');
+                            string[] pars = Regex.Split(parString, "[,](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                            string sourceName = "";
+                            MediaCommand.ControlType state = MediaCommand.ControlType.stop;
+
+                            foreach (string par in pars)
+                            {
+                                if (par.StartsWith("sourceName"))
+                                {
+                                    sourceName = par.RemoveBeforeChar('=').RemoveQuotes();
+                                }
+                            }
+
+                            Commands.Add(new MediaCommand(obs)
+                            {
+                                sourceName = sourceName,
+                                controlType = state
+                            });
+                        }
+                        else if (cmdText.StartsWith("/command=NextMedia,"))
+                        {
+                            string parString = cmdText.RemoveBeforeChar(',');
+                            string[] pars = Regex.Split(parString, "[,](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                            string sourceName = "";
+                            MediaCommand.ControlType state = MediaCommand.ControlType.next;
+
+                            foreach (string par in pars)
+                            {
+                                if (par.StartsWith("sourceName"))
+                                {
+                                    sourceName = par.RemoveBeforeChar('=').RemoveQuotes();
+                                }
+                            }
+
+                            Commands.Add(new MediaCommand(obs)
+                            {
+                                sourceName = sourceName,
+                                controlType = state
+                            });
+                        }
+                        else if (cmdText.StartsWith("/command=PreviousMedia,"))
+                        {
+                            string parString = cmdText.RemoveBeforeChar(',');
+                            string[] pars = Regex.Split(parString, "[,](?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                            string sourceName = "";
+                            MediaCommand.ControlType state = MediaCommand.ControlType.previous;
+
+                            foreach (string par in pars)
+                            {
+                                if (par.StartsWith("sourceName"))
+                                {
+                                    sourceName = par.RemoveBeforeChar('=').RemoveQuotes();
+                                }
+                            }
+
+                            Commands.Add(new MediaCommand(obs)
+                            {
+                                sourceName = sourceName,
+                                controlType = state
                             });
                         }
                         else if (cmdText.StartsWith("/command=SetCurrentTransition,"))

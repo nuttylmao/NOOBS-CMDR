@@ -132,6 +132,9 @@
                             <DataTemplate DataType="{x:Type commands:AudioCommand}">
                                 <actions:AudioControl Command="{Binding}"/>
                             </DataTemplate>
+                            <DataTemplate DataType="{x:Type commands:MediaCommand}">
+                                <actions:MediaControl Command="{Binding}"/>
+                            </DataTemplate>
                             <DataTemplate DataType="{x:Type commands:TransitionCommand}">
                                 <actions:TransitionControl Command="{Binding}"/>
                             </DataTemplate>

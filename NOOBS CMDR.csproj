@@ -152,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Commands\MediaControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Commands\CustomCommandControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -227,6 +231,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\MediaCommand.cs" />
+    <Compile Include="Controls\Commands\MediaControl.xaml.cs">
+      <DependentUpon>MediaControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\OBSWebsocketExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

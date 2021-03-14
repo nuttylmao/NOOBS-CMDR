@@ -14,6 +14,7 @@
             Source,
             Filter,
             Audio,
+            Media,
             Transition,
             StudioMode,
             Screenshot,

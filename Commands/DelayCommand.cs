@@ -1,4 +1,5 @@
 ﻿using OBSWebsocketDotNet;
+using System.Globalization;
 
 namespace NOOBS_CMDR.Commands
 {
@@ -39,7 +40,7 @@ namespace NOOBS_CMDR.Commands
         {
             decimal delayInSec = (decimal)delay / 1000;
 
-            return string.Format(@"/delay={0}", + delayInSec);
+            return string.Format(@"/delay={0}", delayInSec.ToString(new CultureInfo("en-US")));
         }
 
         public override Command Clone()

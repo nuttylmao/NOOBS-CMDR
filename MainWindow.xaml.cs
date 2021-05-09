@@ -137,7 +137,7 @@ namespace NOOBS_CMDR
                                 Environment.SetEnvironmentVariable("PATH", $"{enviromentPath};{selectedPath}", EnvironmentVariableTarget.Machine);
                             }
 
-                            MessageBox.Show(@"NOOBS CMDR is now ready to use.", "OBSCommand Successfully Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(@"NOOBS CMDR is now ready to use. If you are launching NOOBS CMDR scripts via Stream Deck, Lioranboard, Touch Portal etc., you MUST restart that application first.", "OBSCommand Successfully Installed", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         else
                         {

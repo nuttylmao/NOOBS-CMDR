@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border Background="#353535" BorderThickness="0,0,0,1">
@@ -165,6 +166,14 @@
             
         </Border>
 
+        <Border Grid.Row="2" Background="#353535" BorderThickness="0,0,0,1">
+            <Grid Margin="5" HorizontalAlignment="Right">
+                <Button x:Name="DonateBtn" Width="110" Margin="10,0" Click="DonateBtn_Click" Background="#4C92D3" Visibility="{Binding obs.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Normal, FallbackValue=Visible}" ToolTip="Gimme dat money!">
+                    <TextBlock Text="DONATE!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="10,0"/>
+                </Button>
+            </Grid>
+        </Border>
+        
     </Grid>
     
 </Window>

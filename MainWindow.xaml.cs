@@ -1357,5 +1357,14 @@ namespace NOOBS_CMDR
         }
 
         #endregion IDropTarget
+
+        #region Donate
+
+        private void DonateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://streamelements.com/nutty-1152/tip");
+        }
+
+        #endregion Donate
     }
 }

@@ -406,7 +406,14 @@ namespace NOOBS_CMDR
                 MessageBox.Show(@"Please restart in admin mode to install OBSCommand.", "OBSCommand Not Installed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            
+
+            if (commandList.OfType<StreamCommand>().Count() > 0)
+            {
+                var result = MessageBox.Show("You are about to execute a command that starts or stops your stream. Are you sure you want to continue?", "Potentially Risky Command", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                    return;
+            }
+
             string strCmdText;
             strCmdText = string.Format(@"/server={0}:{1} /password=""{2}""", ServerText.Text, PortText.Text, PasswordText.Password);
 
